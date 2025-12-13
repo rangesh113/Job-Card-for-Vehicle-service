@@ -5,6 +5,9 @@ const http = require("http");
 const { Server } = require("socket.io");
 const connectDB = require("./config/db");
 
+// NOTE: This server.js is for LOCAL DEVELOPMENT only
+// For Netlify production deployment, see netlify/functions/api.js
+
 dotenv.config();
 connectDB();
 
