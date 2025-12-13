@@ -1,0 +1,231 @@
+.notification-bell-container {
+    position: relative;
+}
+
+.notification-bell-button {
+    position: relative;
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid white;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.notification-bell-button:hover {
+    background: white;
+    transform: scale(1.1);
+}
+
+.notification-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #e74c3c;
+    color: white;
+    border-radius: 10px;
+    padding: 2px 6px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    min-width: 20px;
+    text-align: center;
+}
+
+.notification-dropdown {
+    position: absolute;
+    top: 55px;
+    right: 0;
+    width: 380px;
+    max-height: 500px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    overflow: hidden;
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.notification-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 2px solid #ecf0f1;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.notification-header h3 {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.mark-all-read {
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid white;
+    color: white;
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.mark-all-read:hover {
+    background: white;
+    color: #667eea;
+}
+
+.notification-list {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.notification-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.notification-list::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.notification-list::-webkit-scrollbar-thumb {
+    background: #bdc3c7;
+    border-radius: 10px;
+}
+
+.no-notifications {
+    text-align: center;
+    padding: 60px 20px;
+    color: #95a5a6;
+}
+
+.no-notif-icon {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.notification-item {
+    display: flex;
+    gap: 12px;
+    padding: 15px 20px;
+    border-bottom: 1px solid #ecf0f1;
+    border-left: 4px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.notification-item:hover {
+    background: #f8f9fa;
+}
+
+.notification-item.unread {
+    background: #e8f4fd;
+}
+
+.notification-item.unread::before {
+    content: "";
+    position: absolute;
+    left: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 8px;
+    height: 8px;
+    background: #3498db;
+    border-radius: 50%;
+}
+
+.notification-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.notification-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.notification-title {
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 4px;
+    font-size: 0.95rem;
+}
+
+.notification-message {
+    color: #7f8c8d;
+    font-size: 0.85rem;
+    margin-bottom: 4px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.notification-time {
+    color: #95a5a6;
+    font-size: 0.75rem;
+}
+
+.notification-delete {
+    background: none;
+    border: none;
+    color: #95a5a6;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.notification-delete:hover {
+    background: #e74c3c;
+    color: white;
+}
+
+.notification-footer {
+    padding: 12px 20px;
+    border-top: 2px solid #ecf0f1;
+    text-align: center;
+}
+
+.notification-footer button {
+    background: none;
+    border: none;
+    color: #667eea;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.notification-footer button:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .notification-dropdown {
+        width: 320px;
+        right: -20px;
+    }
+}
