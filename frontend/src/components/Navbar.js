@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import NotificationBell from "./NotificationBell";
 import "./Navbar.css";
 
 const Navbar = () => {
@@ -41,7 +40,6 @@ const Navbar = () => {
       </div>
 
       <div className="navbar-right">
-        <NotificationBell />
         <div className="role-badge" style={{ background: getRoleColor() }}>
           <span className="role-icon">{getRoleIcon()}</span>
           <span className="role-text">{role}</span>

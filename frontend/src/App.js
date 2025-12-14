@@ -4,7 +4,6 @@ import "react-toastify/dist/ReactToastify.css";
 import Login from "./pages/Login";
 import Navbar from "./components/Navbar";
 import PrivateRoute from "./auth/PrivateRoute";
-import { NotificationProvider } from "./context/NotificationContext";
 
 // DASHBOARDS
 import ManagerDashboard from "./pages/manager/Dashboard";
@@ -26,54 +25,52 @@ const Layout = ({ children }) => {
 function App() {
   return (
     <BrowserRouter>
-      <NotificationProvider>
-        <Layout>
-          <Routes>
-            {/* LOGIN */}
-            <Route path="/" element={<Login />} />
+      <Layout>
+        <Routes>
+          {/* LOGIN */}
+          <Route path="/" element={<Login />} />
 
-            {/* MANAGER */}
-            <Route
-              path="/manager"
-              element={
-                <PrivateRoute role="manager">
-                  <ManagerDashboard />
-                </PrivateRoute>
-              }
-            />
+          {/* MANAGER */}
+          <Route
+            path="/manager"
+            element={
+              <PrivateRoute role="manager">
+                <ManagerDashboard />
+              </PrivateRoute>
+            }
+          />
 
-            {/* ADVISOR */}
-            <Route
-              path="/advisor"
-              element={
-                <PrivateRoute role="advisor">
-                  <AdvisorDashboard />
-                </PrivateRoute>
-              }
-            />
+          {/* ADVISOR */}
+          <Route
+            path="/advisor"
+            element={
+              <PrivateRoute role="advisor">
+                <AdvisorDashboard />
+              </PrivateRoute>
+            }
+          />
 
-            {/* TECHNICIAN */}
-            <Route
-              path="/technician"
-              element={
-                <PrivateRoute role="technician">
-                  <TechnicianDashboard />
-                </PrivateRoute>
-              }
-            />
+          {/* TECHNICIAN */}
+          <Route
+            path="/technician"
+            element={
+              <PrivateRoute role="technician">
+                <TechnicianDashboard />
+              </PrivateRoute>
+            }
+          />
 
-            {/* CASHIER */}
-            <Route
-              path="/cashier"
-              element={
-                <PrivateRoute role="cashier">
-                  <CashierDashboard />
-                </PrivateRoute>
-              }
-            />
-          </Routes>
-        </Layout>
-      </NotificationProvider>
+          {/* CASHIER */}
+          <Route
+            path="/cashier"
+            element={
+              <PrivateRoute role="cashier">
+                <CashierDashboard />
+              </PrivateRoute>
+            }
+          />
+        </Routes>
+      </Layout>
     </BrowserRouter>
   );
 }
