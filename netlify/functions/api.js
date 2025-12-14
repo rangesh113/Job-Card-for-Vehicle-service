@@ -61,10 +61,8 @@ module.exports.handler = async (event, context) => {
         event.body = Buffer.from(event.body, 'base64').toString('utf8');
     }
 
-    // Call serverless handler
-    const handler = serverless(app, {
-        basePath: '/api'
-    });
+    // Call serverless handler without basePath since routes already have /api
+    const handler = serverless(app);
 
     return handler(event, context);
 };
