@@ -55,16 +55,16 @@ app.use("/api/notifications", notificationRoutes);
 app.use("/api/inventory", inventoryRoutes);
 
 // Export handler with proper configuration
-module.exports.handler = serverless(app, {
-    basePath: '/api',
-    request(request, event, context) {
-        // Ensure body is properly parsed
-        if (event.body && typeof event.body === 'string') {
-            try {
-                request.body = JSON.parse(event.body);
-            } catch (e) {
-                request.body = event.body;
-            }
-        }
+module.exports.handler = async (event, context) => {
+    // Parse body if it's a string (Netlify sends it as base64 encoded)
+    if (event.body && event.isBase64Encoded) {
+        event.body = Buffer.from(event.body, 'base64').toString('utf8');
     }
-});
+
+    // Call serverless handler
+    const handler = serverless(app, {
+        basePath: '/api'
+    });
+
+    return handler(event, context);
+};
