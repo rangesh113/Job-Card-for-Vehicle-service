@@ -76,6 +76,8 @@
 
 .section-header .btn {
   white-space: nowrap;
+  width: auto;
+  /* Make button fit content */
 }
 
 /* Buttons */
@@ -548,10 +550,6 @@
 
   .section-header h2 {
     font-size: 1.5rem;
-  }
-
-  .section-header .btn {
-    width: 100%;
   }
 
   .bills-grid,
