@@ -15,9 +15,10 @@ const connectDB = async () => {
             // Optimized settings for serverless
             maxPoolSize: 5,
             minPoolSize: 1,
-            serverSelectionTimeoutMS: 15000,
-            socketTimeoutMS: 60000,
-            connectTimeoutMS: 15000,
+            serverSelectionTimeoutMS: 30000,
+            socketTimeoutMS: 75000,
+            connectTimeoutMS: 30000,
+            bufferCommands: false, // Disable buffering
         });
 
         cachedConnection = conn;
