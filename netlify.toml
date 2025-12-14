@@ -1,6 +1,6 @@
 [build]
   # Build command for the frontend
-  command = "cd frontend && npm install && npm run build"
+  command = "cd netlify/functions && npm install && cd ../../frontend && npm install && npm run build"
   # Directory to publish (React build output)
   publish = "frontend/build"
   # Directory for serverless functions
