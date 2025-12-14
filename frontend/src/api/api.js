@@ -12,6 +12,8 @@ API.interceptors.request.use(
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
+    // Debug logging
+    console.log("API Request:", config.method, config.url, config.data);
     return config;
   },
   (error) => Promise.reject(error)
