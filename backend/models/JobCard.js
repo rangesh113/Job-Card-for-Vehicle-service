@@ -13,7 +13,7 @@ const jobCardSchema = new mongoose.Schema(
 
     vehicleModel: {
       type: String,
-      required: true
+      required: false // Made optional to support old job cards
     },
 
     vehicleNumber: {
