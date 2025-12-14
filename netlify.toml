@@ -10,19 +10,16 @@
   # Node version
   NODE_VERSION = "20"
 
-# Redirect all requests to index.html for React Router (SPA)
+# API routes should go to serverless functions (must be first)
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/api/:splat"
+  status = 200
+
+# Redirect all other requests to index.html for React Router (SPA)
 [[redirects]]
   from = "/*"
   to = "/index.html"
-  status = 200
-  # Don't redirect API calls to index.html
-  conditions = {Role = ["client"]}
-  force = false
-
-# API routes should go to serverless functions
-[[redirects]]
-  from = "/api/*"
-  to = "/.netlify/functions/:splat"
   status = 200
 
 # Headers for security
