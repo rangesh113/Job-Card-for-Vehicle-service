@@ -35,6 +35,22 @@ const AdvisorDashboard = () => {
     loadData();
   }, []);
 
+  const loadData = async () => {
+    try {
+      const [techRes, jobsRes] = await Promise.all([
+        API.get("/manager/technicians"),
+        API.get("/jobcards")
+      ]);
+      setTechnicians(techRes.data);
+      setJobCards(jobsRes.data);
+    } catch (err) {
+      console.error("Failed to load data:", err);
+      toast.error("Failed to load data");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const applyFilters = useCallback(() => {
     let filtered = [...jobCards];
 

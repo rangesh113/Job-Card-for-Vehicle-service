@@ -31,6 +31,22 @@ const Dashboard = () => {
     loadData();
   }, []);
 
+  const loadData = async () => {
+    try {
+      const [dashRes, jobsRes] = await Promise.all([
+        API.get("/manager/dashboard"),
+        API.get("/manager/jobs")
+      ]);
+      setData(dashRes.data);
+      setJobs(jobsRes.data);
+    } catch (err) {
+      toast.error("Failed to load dashboard");
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const applyFilters = useCallback(() => {
     let filtered = [...jobs];
 

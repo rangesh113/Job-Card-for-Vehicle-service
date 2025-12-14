@@ -41,6 +41,29 @@ const CashierDashboard = () => {
     loadBills();
   }, []);
 
+  const loadBills = async () => {
+    try {
+      const res = await API.get("/bills");
+      setBills(res.data);
+    } catch (err) {
+      toast.error("Failed to load bills");
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const loadJobs = async () => {
+    try {
+      const res = await API.get("/bills/done-jobs");
+      setJobs(res.data);
+      setView("jobs");
+    } catch (err) {
+      toast.error("Failed to load jobs");
+      console.error(err);
+    }
+  };
+
   const applyFilters = useCallback(() => {
     let filtered = [...bills];
     if (searchTerm) {
@@ -58,6 +81,16 @@ const CashierDashboard = () => {
   useEffect(() => {
     applyFilters();
   }, [applyFilters]);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (searchRef.current && !searchRef.current.contains(event.target)) {
+        setShowSearchDropdown(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   const searchParts = async (query) => {
     if (!query || query.length < 2) {
