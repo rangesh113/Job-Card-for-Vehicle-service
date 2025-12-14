@@ -113,13 +113,6 @@ const Login = () => {
               </>
             )}
           </button>
-
-          <div className="login-footer">
-            <p className="demo-info">
-              <span className="info-icon">ℹ️</span>
-              Demo Credentials Available
-            </p>
-          </div>
         </form>
 
         <div className="roles-info">
