@@ -54,5 +54,17 @@ app.use("/api/manager", managerRoutes);
 app.use("/api/notifications", notificationRoutes);
 app.use("/api/inventory", inventoryRoutes);
 
-// Export handler
-module.exports.handler = serverless(app);
+// Export handler with proper configuration
+module.exports.handler = serverless(app, {
+    basePath: '/api',
+    request(request, event, context) {
+        // Ensure body is properly parsed
+        if (event.body && typeof event.body === 'string') {
+            try {
+                request.body = JSON.parse(event.body);
+            } catch (e) {
+                request.body = event.body;
+            }
+        }
+    }
+});
