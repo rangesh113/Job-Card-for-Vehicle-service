@@ -46,13 +46,13 @@ app.use(async (req, res, next) => {
     }
 });
 
-// Mount routes
-app.use("/api/auth", authRoutes);
-app.use("/api/jobcards", jobCardRoutes);
-app.use("/api/bills", billRoutes);
-app.use("/api/manager", managerRoutes);
-app.use("/api/notifications", notificationRoutes);
-app.use("/api/inventory", inventoryRoutes);
+// Mount routes (without /api prefix since Netlify redirect strips it)
+app.use("/auth", authRoutes);
+app.use("/jobcards", jobCardRoutes);
+app.use("/bills", billRoutes);
+app.use("/manager", managerRoutes);
+app.use("/notifications", notificationRoutes);
+app.use("/inventory", inventoryRoutes);
 
 // Export handler with proper configuration
 module.exports.handler = async (event, context) => {
