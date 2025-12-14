@@ -76,8 +76,10 @@
 
 .section-header .btn {
   white-space: nowrap;
-  width: auto;
-  /* Make button fit content */
+  width: auto !important;
+  /* Force button to fit content */
+  flex-shrink: 0;
+  /* Prevent button from shrinking */
 }
 
 /* Buttons */
