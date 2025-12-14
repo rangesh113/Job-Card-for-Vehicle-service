@@ -268,8 +268,8 @@ const CashierDashboard = () => {
       item.name,
       item.partNumber || "-",
       item.quantity || 1,
-      `₹${Number(item.price).toFixed(2)}`,
-      `₹${(Number(item.price) * (item.quantity || 1)).toFixed(2)}`
+      `Rs. ${Number(item.price).toFixed(2)}`,
+      `Rs. ${(Number(item.price) * (item.quantity || 1)).toFixed(2)}`
     ]);
 
     autoTable(doc, {
@@ -285,7 +285,7 @@ const CashierDashboard = () => {
     const finalY = doc.lastAutoTable ? doc.lastAutoTable.finalY + 10 : 85;
     doc.setFontSize(14);
     doc.setFont(undefined, "bold");
-    doc.text(`Total Amount: ₹${Number(bill.totalAmount).toFixed(2)}`, 140, finalY);
+    doc.text(`Total Amount: Rs. ${Number(bill.totalAmount).toFixed(2)}`, 140, finalY);
 
     // Footer
     doc.setFontSize(8);
