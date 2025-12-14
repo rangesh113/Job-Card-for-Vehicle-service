@@ -36,20 +36,13 @@ exports.login = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    console.log("Login attempt for:", email);
-
-    // Add timeout to the query
-    const user = await User.findOne({ email }).maxTimeMS(5000).lean();
-
-    console.log("User found:", user ? "Yes" : "No");
+    const user = await User.findOne({ email }).lean();
 
     if (!user) {
       return res.status(400).json({ message: "Invalid credentials" });
     }
 
-    console.log("Starting password comparison");
     const isMatch = await bcrypt.compare(password, user.password);
-    console.log("Password match:", isMatch);
 
     if (!isMatch) {
       return res.status(400).json({ message: "Invalid credentials" });
@@ -70,7 +63,6 @@ exports.login = async (req, res) => {
       }
     });
   } catch (error) {
-    console.error("Login error:", error.message);
     res.status(500).json({ message: error.message });
   }
 };
