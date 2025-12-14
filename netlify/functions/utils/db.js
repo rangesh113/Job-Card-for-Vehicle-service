@@ -13,10 +13,11 @@ const connectDB = async () => {
     try {
         const conn = await mongoose.connect(process.env.MONGODB_URI, {
             // Optimized settings for serverless
-            maxPoolSize: 10,
+            maxPoolSize: 5,
             minPoolSize: 1,
-            serverSelectionTimeoutMS: 5000,
-            socketTimeoutMS: 45000,
+            serverSelectionTimeoutMS: 15000,
+            socketTimeoutMS: 60000,
+            connectTimeoutMS: 15000,
         });
 
         cachedConnection = conn;
