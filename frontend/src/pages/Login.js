@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import API from "../api/api";
 import "./Login.css";
 
 const Login = () => {
@@ -13,24 +14,12 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:5000/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          email: email.trim(),
-          password: password.trim()
-        })
+      const res = await API.post("/auth/login", {
+        email: email.trim(),
+        password: password.trim()
       });
 
-      const data = await res.json();
-
-      if (!res.ok) {
-        alert(data.message || "Login failed");
-        setLoading(false);
-        return;
-      }
+      const data = res.data;
 
       localStorage.setItem("token", data.token);
       localStorage.setItem("role", data.user.role);
@@ -42,7 +31,7 @@ const Login = () => {
       else if (data.user.role === "manager") navigate("/manager");
     } catch (err) {
       console.error(err);
-      alert("Server error");
+      alert(err.response?.data?.message || "Login failed");
       setLoading(false);
     }
   };
