@@ -5,8 +5,7 @@ const http = require("http");
 const { Server } = require("socket.io");
 const connectDB = require("./config/db");
 
-// NOTE: This server.js is for LOCAL DEVELOPMENT only
-// For Netlify production deployment, see netlify/functions/api.js
+// Server configuration for both local development and Render production deployment
 
 dotenv.config();
 connectDB();
@@ -17,7 +16,7 @@ const server = http.createServer(app);
 // Setup Socket.IO
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: process.env.FRONTEND_URL || "http://localhost:3000",
     methods: ["GET", "POST"],
     credentials: true
   }
@@ -46,7 +45,7 @@ app.use((req, res, next) => {
 
 // CORS
 app.use(cors({
-  origin: "http://localhost:3000",
+  origin: process.env.FRONTEND_URL || "http://localhost:3000",
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
