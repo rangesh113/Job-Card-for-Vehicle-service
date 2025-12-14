@@ -153,7 +153,8 @@ exports.addServiceSummary = async (req, res) => {
       return res.status(404).json({ message: "Job card not found" });
     }
 
-    if (job.technician?.toString() !== req.user.id) {
+    const technicianId = job.technician?._id || job.technician;
+    if (technicianId?.toString() !== req.user.id) {
       return res.status(403).json({ message: "Not authorized" });
     }
 
@@ -213,8 +214,9 @@ exports.updateJobStatus = async (req, res) => {
     const oldStatus = job.status;
     const newStatus = req.body.status;
 
-    // Authorization check
-    const isTechnician = job.technician?.toString() === req.user.id;
+    // Authorization check - handle both ObjectId and populated object
+    const technicianId = job.technician?._id || job.technician;
+    const isTechnician = technicianId?.toString() === req.user.id;
     const isManager = req.user.role === "manager";
 
     if (!isTechnician && !isManager) {
@@ -281,7 +283,8 @@ exports.markAsCritical = async (req, res) => {
       return res.status(404).json({ message: "Job card not found" });
     }
 
-    if (job.technician?.toString() !== req.user.id) {
+    const technicianId = job.technician?._id || job.technician;
+    if (technicianId?.toString() !== req.user.id) {
       return res.status(403).json({ message: "Not authorized" });
     }
 
