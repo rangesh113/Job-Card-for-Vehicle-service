@@ -1,13 +1,11 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useNotifications } from "../context/NotificationContext";
-import { useNavigate } from "react-router-dom";
 import "./NotificationBell.css";
 
 const NotificationBell = () => {
     const { notifications, unreadCount, markAsRead, markAllAsRead, deleteNotification } = useNotifications();
     const [showDropdown, setShowDropdown] = useState(false);
     const dropdownRef = useRef(null);
-    const navigate = useNavigate();
 
     // Close dropdown when clicking outside
     useEffect(() => {

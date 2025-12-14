@@ -16,7 +16,6 @@ export const useNotifications = () => {
 export const NotificationProvider = ({ children }) => {
     const [notifications, setNotifications] = useState([]);
     const [unreadCount, setUnreadCount] = useState(0);
-    const [socket, setSocket] = useState(null);
 
     useEffect(() => {
         // Load initial notifications
@@ -57,8 +56,6 @@ export const NotificationProvider = ({ children }) => {
                     draggable: true
                 });
             });
-
-            setSocket(newSocket);
 
             return () => {
                 newSocket.disconnect();

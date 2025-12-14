@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import API from "../../api/api";
 import SearchBar from "../../components/SearchBar";
 import FilterPanel from "../../components/FilterPanel";
@@ -35,27 +35,7 @@ const AdvisorDashboard = () => {
     loadData();
   }, []);
 
-  useEffect(() => {
-    applyFilters();
-  }, [searchTerm, filters, jobCards]);
-
-  const loadData = async () => {
-    try {
-      const [techRes, jobsRes] = await Promise.all([
-        API.get("/manager/technicians"),
-        API.get("/jobcards")
-      ]);
-      setTechnicians(techRes.data);
-      setJobCards(jobsRes.data);
-    } catch (err) {
-      console.error("Failed to load data:", err);
-      toast.error("Failed to load data");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const applyFilters = () => {
+  const applyFilters = useCallback(() => {
     let filtered = [...jobCards];
 
     // Search filter
@@ -89,7 +69,11 @@ const AdvisorDashboard = () => {
     }
 
     setFilteredJobs(filtered);
-  };
+  }, [searchTerm, filters, jobCards]);
+
+  useEffect(() => {
+    applyFilters();
+  }, [applyFilters]);
 
   const handleFilterChange = (filterName, value) => {
     setFilters(prev => ({

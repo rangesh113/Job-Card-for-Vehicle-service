@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import API from "../../api/api";
 import SearchBar from "../../components/SearchBar";
 import Pagination from "../../components/Pagination";
@@ -41,44 +41,7 @@ const CashierDashboard = () => {
     loadBills();
   }, []);
 
-  useEffect(() => {
-    applyFilters();
-  }, [searchTerm, bills]);
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (searchRef.current && !searchRef.current.contains(event.target)) {
-        setShowSearchDropdown(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
-  const loadBills = async () => {
-    try {
-      const res = await API.get("/bills");
-      setBills(res.data);
-    } catch (err) {
-      toast.error("Failed to load bills");
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const loadJobs = async () => {
-    try {
-      const res = await API.get("/bills/done-jobs");
-      setJobs(res.data);
-      setView("jobs");
-    } catch (err) {
-      toast.error("Failed to load jobs");
-      console.error(err);
-    }
-  };
-
-  const applyFilters = () => {
+  const applyFilters = useCallback(() => {
     let filtered = [...bills];
     if (searchTerm) {
       const search = searchTerm.toLowerCase();
@@ -90,7 +53,11 @@ const CashierDashboard = () => {
     }
     setFilteredBills(filtered);
     setCurrentPage(1);
-  };
+  }, [searchTerm, bills]);
+
+  useEffect(() => {
+    applyFilters();
+  }, [applyFilters]);
 
   const searchParts = async (query) => {
     if (!query || query.length < 2) {

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import API from "../../api/api";
 import SearchBar from "../../components/SearchBar";
 import FilterPanel from "../../components/FilterPanel";
@@ -31,27 +31,7 @@ const Dashboard = () => {
     loadData();
   }, []);
 
-  useEffect(() => {
-    applyFilters();
-  }, [searchTerm, filters, jobs]);
-
-  const loadData = async () => {
-    try {
-      const [dashRes, jobsRes] = await Promise.all([
-        API.get("/manager/dashboard"),
-        API.get("/manager/jobs")
-      ]);
-      setData(dashRes.data);
-      setJobs(jobsRes.data);
-    } catch (err) {
-      toast.error("Failed to load dashboard");
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const applyFilters = () => {
+  const applyFilters = useCallback(() => {
     let filtered = [...jobs];
 
     if (searchTerm) {
@@ -80,7 +60,11 @@ const Dashboard = () => {
     }
 
     setFilteredJobs(filtered);
-  };
+  }, [searchTerm, filters, jobs]);
+
+  useEffect(() => {
+    applyFilters();
+  }, [applyFilters]);
 
   const handleFilterChange = (filterName, value) => {
     setFilters(prev => ({ ...prev, [filterName]: value }));
